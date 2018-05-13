@@ -8,6 +8,7 @@ import java.awt.TextArea;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -31,6 +32,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.security.acl.Group;
 import java.awt.Component;
 import javax.swing.Box;
@@ -269,6 +271,9 @@ public class masajista extends JFrame {
 				textField.setText("");
 				textArea.setText(null);
 				comboBox_1.setSelectedIndex(0);
+				spinner.setValue(0);
+				rdbtnDa.setSelected(true);
+				rdbtnNoche.setSelected(false);
 
 			}
 		});
@@ -279,9 +284,48 @@ public class masajista extends JFrame {
 		contentPane.add(scrollPane);
 
 		table = new JTable();
+
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Cliente", "Masajista", "Sala", "D\u00EDa", "Tipo de masaje" }));
+
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int row = table.getSelectedRow();
+				int col = table.getSelectedColumn();
+				table.getValueAt(row, col);
+				String[] cliente= new String[5];
+				cliente[0] = (String) table.getValueAt(row, 0);
+				cliente[1] = (String) table.getValueAt(row, 1);
+				cliente[2] = (String) table.getValueAt(row, 2);
+				cliente[3] = (String) table.getValueAt(row, 3);
+				cliente[4] = (String) table.getValueAt(row, 4);
+			
+				textField.setText(cliente[0]);
+				comboBox_1.setSelectedItem(cliente[1]);
+				spinner.setValue(Integer.parseInt(cliente[2]));
+				rdbtnDa.setText(cliente[3]);
+				
+				if(cliente[3].equals("Día")) {
+					rdbtnDa.setSelected(true);
+					rdbtnNoche.setSelected(false);
+				}else {
+					rdbtnDa.setSelected(false);
+					rdbtnNoche.setSelected(true);
+				}
+				
+				textArea.setText(cliente[4]);
+				
+						
+						
+						
+						
+			}
+						
+						
+			
+		});
+
 		table.getColumnModel().getColumn(4).setPreferredWidth(152);
 	}
 }
