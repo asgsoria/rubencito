@@ -41,8 +41,7 @@ import javax.swing.JRadioButtonMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class masajista extends JFrame  {
-	
+public class masajista extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -52,7 +51,7 @@ public class masajista extends JFrame  {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -75,66 +74,54 @@ public class masajista extends JFrame  {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
-		
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 70, 21);
 		contentPane.add(menuBar);
-		
-		
-		
-		
+
 		JMenu mnArchivo = new JMenu("Archivo");
 		menuBar.add(mnArchivo);
-		
-		
-		
+
 		JMenuItem mntmGuardar = new JMenuItem("Guardar");
 		mntmGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				
-				JFileChooser fc=new JFileChooser();
-				int op=fc.showSaveDialog(contentPane);
-				if(op==JFileChooser.APPROVE_OPTION){
-					File ruta=fc.getSelectedFile();
-					String[] datos= new String[model.getRowCount()];
-					
-					try{
+
+				JFileChooser fc = new JFileChooser();
+				int op = fc.showSaveDialog(contentPane);
+				if (op == JFileChooser.APPROVE_OPTION) {
+					File ruta = fc.getSelectedFile();
+					String[] datos = new String[model.getRowCount()];
+
+					try {
 						FileWriter output = new FileWriter(ruta);
 						output.write("");
 						output.close();
-					}catch(IOException ex){
+					} catch (IOException ex) {
 						System.out.println("Error");
 					}
-					for(int i=0;i<model.getRowCount();i++){
-						
-						datos[i]=model.getValueAt(i, 0).toString()+
-								"|"+model.getValueAt(i, 1).toString()+
-								"|"+model.getValueAt(i, 2).toString()
-								+"|"+model.getValueAt(i, 3).toString()+
-								"|"+model.getValueAt(i, 4).toString()+
-								"|"+"\n";
-						
-						try{
-							FileWriter output = new FileWriter(ruta,true);
+					for (int i = 0; i < model.getRowCount(); i++) {
+
+						datos[i] = model.getValueAt(i, 0).toString() + "|" + model.getValueAt(i, 1).toString() + "|"
+								+ model.getValueAt(i, 2).toString() + "|" + model.getValueAt(i, 3).toString() + "|"
+								+ model.getValueAt(i, 4).toString() + "|" + "\n";
+
+						try {
+							FileWriter output = new FileWriter(ruta, true);
 							output.write(datos[i]);
 							output.close();
-						}catch(IOException ex){
+						} catch (IOException ex) {
 							System.out.println("Error");
 						}
-						
+
 					}
-					
+
 				}
-				
-				
+
 			}
 		});
 		mnArchivo.add(mntmGuardar);
-		
+
 		JMenuItem mntmSalir = new JMenuItem("Salir");
 		mntmSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,132 +129,113 @@ public class masajista extends JFrame  {
 			}
 		});
 		mnArchivo.add(mntmSalir);
-		
+
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setBounds(10, 33, 70, 15);
 		contentPane.add(lblCliente);
-		
+
 		JLabel lblMasajista = new JLabel("Masajista");
 		lblMasajista.setBounds(0, 60, 70, 15);
 		contentPane.add(lblMasajista);
-		
+
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Juan", "Carla", "Pedro", "Sandra", "Lucas"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] { "Juan", "Carla", "Pedro", "Sandra", "Lucas" }));
 		comboBox_1.setBounds(108, 57, 104, 21);
 		contentPane.add(comboBox_1);
-		
+
 		textField = new JTextField();
 		textField.setBounds(98, 31, 114, 19);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblSala = new JLabel("Sala");
 		lblSala.setBounds(10, 87, 70, 15);
 		contentPane.add(lblSala);
-		
+
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(56, 81, 51, 21);
 		contentPane.add(spinner);
-		
-		
-		
-		
+
 		JRadioButton rdbtnNoche = new JRadioButton("Noche");
 		rdbtnNoche.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 			}
 		});
 		rdbtnNoche.setBounds(76, 119, 81, 23);
 		contentPane.add(rdbtnNoche);
-		
+
 		JRadioButton rdbtnDa = new JRadioButton("Día");
 		rdbtnDa.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {	
+			public void mouseClicked(MouseEvent e) {
 			}
-			
+
 		});
 		rdbtnDa.setSelected(true);
 		rdbtnDa.setBounds(10, 119, 64, 23);
 		contentPane.add(rdbtnDa);
-		
+
 		ButtonGroup group = new ButtonGroup();
-	    group.add(rdbtnDa);
-	    group.add(rdbtnNoche);
-	    
-	    
-	    
-	    
-	    JLabel lblTipoDeMasaje = new JLabel("Tipo de masaje");
+		group.add(rdbtnDa);
+		group.add(rdbtnNoche);
+
+		JLabel lblTipoDeMasaje = new JLabel("Tipo de masaje");
 		lblTipoDeMasaje.setBounds(249, 6, 129, 15);
 		contentPane.add(lblTipoDeMasaje);
-		
+
 		JTextArea textArea = new JTextArea();
 		textArea.setLineWrap(true);
 		textArea.setBounds(233, 33, 183, 106);
 		contentPane.add(textArea);
-		
-		
-		
+
 		JButton btnAadir = new JButton("Añadir");
 		btnAadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				
-				String [] btanadir=new String[5];
-				btanadir[0]=textField.getText();
-				
-				btanadir[1]=(String)comboBox_1.getSelectedItem();
-				btanadir[4]=(String)textArea.getText();
-				
-				
-				if(rdbtnDa.isSelected()==true){
-					btanadir[3]="Día";
-				}else{
-					btanadir[3]="Noche";
+
+				String[] btanadir = new String[5];
+				btanadir[0] = textField.getText();
+
+				btanadir[1] = (String) comboBox_1.getSelectedItem();
+				btanadir[4] = (String) textArea.getText();
+
+				if (rdbtnDa.isSelected() == true) {
+					btanadir[3] = "Día";
+				} else {
+					btanadir[3] = "Noche";
 				}
-				if(!spinner.getValue().toString().isEmpty()) {
-		        	spinner.setValue(0);
-		        }else{
-		        	try {
-		        	    spinner.commitEdit();
-		        	} catch ( java.text.ParseException z ) {
-		        		System.out.println(z);
-		        	}
-		        	
-		        
-		        	
-		        	btanadir[2]=((Integer)spinner.getValue()).toString();
-		        }
-				
-				
-				
-				
-				
-				
-				
-			        model.addRow(btanadir);
-			        table.setModel(model); 
-			        
-			        
+				if (spinner.getValue().toString().isEmpty()) {
+					spinner.setValue(0);
+				} else {
+					try {
+
+						spinner.commitEdit();
+						btanadir[2] = ((Integer) spinner.getValue()).toString();
+					} catch (java.text.ParseException z) {
+						System.out.println(z);
+					}
+
+				}
+
+				model.addRow(btanadir);
+				table.setModel(model);
+
 			}
 		});
 		btnAadir.setBounds(0, 300, 117, 25);
 		contentPane.add(btnAadir);
-		
-		
-		
+
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				String [] btanadir=new String[4];
-				btanadir[0]=textField.getText();
-				btanadir[1]=(String)comboBox_1.getSelectedItem();
-				btanadir[3]=(String)textArea.getSelectedText();
+				String[] btanadir = new String[4];
+				btanadir[0] = textField.getText();
+				btanadir[1] = (String) comboBox_1.getSelectedItem();
+				btanadir[3] = (String) textArea.getSelectedText();
 			}
 		});
 		btnModificar.addActionListener(new ActionListener() {
@@ -278,12 +246,6 @@ public class masajista extends JFrame  {
 		btnModificar.setBounds(149, 300, 117, 25);
 		contentPane.add(btnModificar);
 
-		
-		
-		
-		
-		
-		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -294,48 +256,32 @@ public class masajista extends JFrame  {
 		});
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
-				 
-				
+
 			}
 		});
 		btnEliminar.setBounds(299, 300, 117, 25);
 		contentPane.add(btnEliminar);
-		
+
 		JMenuItem mntmPresupuestp = new JMenuItem("Nueva hoja");
 		mntmPresupuestp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 
 				textField.setText("");
 				textArea.setText(null);
 				comboBox_1.setSelectedIndex(0);
-				
-				
+
 			}
 		});
 		mnArchivo.add(mntmPresupuestp);
-		
-		
-		
-		
-	
-		
-		
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 150, 448, 138);
 		contentPane.add(scrollPane);
-		
+
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Cliente", "Masajista", "Sala", "D\u00EDa", "Tipo de masaje"
-			}
-		));
+		table.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Cliente", "Masajista", "Sala", "D\u00EDa", "Tipo de masaje" }));
 		table.getColumnModel().getColumn(4).setPreferredWidth(152);
 	}
 }
