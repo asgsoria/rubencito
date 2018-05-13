@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -41,6 +42,8 @@ import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButtonMenuItem;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 public class masajista extends JFrame {
@@ -156,7 +159,31 @@ public class masajista extends JFrame {
 
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(56, 81, 51, 21);
+		
+		
+		spinner.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+				char c=e.getKeyChar();
+				
+				if(!Character.isDigit(c)) {
+					getToolkit().beep();
+					e.consume();
+					
+					JOptionPane.showMessageDialog(contentPane, "Introduce solo números");
+				}
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
 		contentPane.add(spinner);
+		
 
 		JRadioButton rdbtnNoche = new JRadioButton("Noche");
 		rdbtnNoche.addMouseListener(new MouseAdapter() {
@@ -233,11 +260,45 @@ public class masajista extends JFrame {
 		btnModificar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				DefaultTableModel model = (DefaultTableModel) table.getModel();
-				String[] btanadir = new String[4];
-				btanadir[0] = textField.getText();
-				btanadir[1] = (String) comboBox_1.getSelectedItem();
-				btanadir[3] = (String) textArea.getSelectedText();
+				
+				int row = table.getSelectedRow();
+				int col = table.getSelectedColumn();
+				table.getValueAt(row, col);
+				String[] cliente= new String[5];
+				cliente[0] = textField.getText();
+				cliente[1] = (String) comboBox_1.getSelectedItem();
+				cliente[2] = (String) textArea.getText();
+				
+				
+				
+				if (rdbtnDa.isSelected() == true) {
+					cliente[3] = "Día";
+				} else {
+					cliente[3] = "Noche";
+				}
+				if (spinner.getValue().toString().isEmpty()) {
+					spinner.setValue(0);
+				} else {
+					try {
+
+						spinner.commitEdit();
+						cliente[2] = ((Integer) spinner.getValue()).toString();
+					} catch (java.text.ParseException z) {
+						System.out.println(z);
+					}
+
+				}
+				
+				table.setValueAt(cliente[0], row,0);
+				table.setValueAt(cliente[1], row,1);
+				table.setValueAt(cliente[2], row,2);
+				table.setValueAt(cliente[3], row,3);
+				table.setValueAt(cliente[4], row,4);
+				
+		
+
+
+				
 			}
 		});
 		btnModificar.addActionListener(new ActionListener() {
