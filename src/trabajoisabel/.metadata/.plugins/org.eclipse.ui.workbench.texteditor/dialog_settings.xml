@@ -2,25 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Spi" key="selection"/>
+		<item value="Añad" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="spi"/>
+			<item value="añad"/>
+			<item value="modif"/>
 			<item value="listener"/>
+			<item value="Text"/>
+			<item value="noche"/>
+			<item value="dia"/>
+			<item value="rad"/>
+			<item value="nueva"/>
+			<item value="spi"/>
 			<item value="aña"/>
 			<item value="row"/>
 			<item value="add."/>
 			<item value="spinner"/>
 			<item value="Puertas"/>
 			<item value="lblPuertas"/>
-			<item value="textA"/>
-			<item value="guar"/>
-			<item value="trabajo"/>
-			<item value="puertas"/>
-			<item value="btanadir"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
